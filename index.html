@@ -20,18 +20,41 @@
         <li
           class="todo-item"
           v-if="todos.length > 0"
-          v-for="todo in todos"
+          v-for="todo in filterTodo"
           :key="todo.id"
         >
           <input type="checkbox" v-model="todo.completed" />
           <span class="todo-title" :class="{ completed: todo.completed }"
-            >{{todo.title}}</span
+            >{{ todo.title }}</span
           >
           <span class="todo-remove" @click="deleteTodo(todo.id)">
             &times;
           </span>
         </li>
         <li v-else class="todo-item">No todos found</li>
+        <div class="actions">
+          <p>{{totalTodos}} todos</p>
+          <div class="filter">
+            <button
+              @click="changeFilterStatus('all')"
+              :class="{selected:filterStatus==='all'}"
+            >
+              All
+            </button>
+            <button
+              @click="changeFilterStatus('active')"
+              :class="{selected:filterStatus==='active'}"
+            >
+              Active
+            </button>
+            <button
+              @click="changeFilterStatus('completed')"
+              :class="{selected:filterStatus==='completed'}"
+            >
+              Completed
+            </button>
+          </div>
+        </div>
       </ul>
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
