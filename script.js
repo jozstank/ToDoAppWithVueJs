@@ -1,3 +1,5 @@
+import NewTodoForm from "./NewTodoForm.js";
+import TodoItems from "./TodoItems.js";
 const { createApp } = Vue;
 const app = createApp({
   data() {
@@ -8,6 +10,7 @@ const app = createApp({
       totalTodos: 0,
     };
   },
+
   computed: {
     filterTodo() {
       if (this.filterStatus === "all") {
@@ -29,7 +32,8 @@ const app = createApp({
     },
   },
   methods: {
-    addTodo() {
+    addNewToDo(data) {
+      this.todoTitle = data;
       if (this.todoTitle.length > 0) {
         const newTodo = {
           id: this.todos.length + 1,
@@ -37,7 +41,7 @@ const app = createApp({
           completed: false,
         };
         this.todos.push(newTodo);
-        this.todoTitle = "";
+        this.$refs.myElement.$data.todoTitle = "";
       }
     },
     deleteTodo(id) {
@@ -46,6 +50,10 @@ const app = createApp({
     changeFilterStatus(x) {
       this.filterStatus = x;
     },
+  },
+  components: {
+    "newtodo-form": NewTodoForm,
+    "todo-item": TodoItems,
   },
 });
 app.mount("#app");
